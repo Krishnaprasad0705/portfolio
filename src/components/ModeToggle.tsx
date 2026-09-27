@@ -28,7 +28,9 @@ export default function ModeToggle({ compact = false }: ModeToggleProps) {
     >
       {/* DATA Option */}
       <span
-        className={`relative z-10 flex items-center gap-1 px-2.5 py-1 text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-400 ${
+        className={`relative z-10 flex items-center gap-1 ${
+          compact ? "px-1.5 sm:px-2.5" : "px-2.5"
+        } py-1 text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-400 ${
           !isBeyond ? "text-white" : "text-[#A8A08F]/50 group-hover:text-[#A8A08F]"
         }`}
       >
@@ -59,12 +61,14 @@ export default function ModeToggle({ compact = false }: ModeToggleProps) {
 
       {/* BEYOND DATA Option */}
       <span
-        className={`relative z-10 flex items-center gap-1 px-2.5 py-1 text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-400 ${
+        className={`relative z-10 flex items-center gap-1 ${
+          compact ? "px-1.5 sm:px-2.5" : "px-2.5"
+        } py-1 text-[10px] font-mono font-bold tracking-wider uppercase transition-colors duration-400 ${
           isBeyond ? "text-[#F5F0E6]" : "text-[#8A8A8A]/60 group-hover:text-white"
         }`}
       >
         <Sparkles className={`w-2.5 h-2.5 ${isBeyond ? "text-[#D4AF37]" : "opacity-40"}`} />
-        <span>BEYOND DATA</span>
+        <span>{compact ? "BEYOND" : "BEYOND DATA"}</span>
       </span>
     </button>
   );

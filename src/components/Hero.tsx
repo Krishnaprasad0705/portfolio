@@ -63,11 +63,11 @@ export default function Hero() {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col justify-between overflow-hidden pt-20 bg-[#050505] select-none"
+      className="relative min-h-[100svh] md:min-h-screen w-full flex flex-col justify-between overflow-hidden pt-16 sm:pt-20 bg-[#050505] select-none"
     >
       {/* Ambient Red Glow in center behind typography */}
       <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] rounded-full blur-[180px] pointer-events-none opacity-25"
+        className="absolute top-1/4 md:top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[500px] md:w-[850px] h-[340px] sm:h-[450px] md:h-[550px] rounded-full blur-[100px] md:blur-[180px] pointer-events-none opacity-25"
         style={{
           background:
             "radial-gradient(ellipse at center, #FF2028 0%, rgba(200, 20, 30, 0.35) 40%, rgba(5,5,5,0) 75%)",
@@ -84,13 +84,13 @@ export default function Hero() {
           y: scrollTextY,
           x: textX,
         }}
-        className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-0 flex items-center justify-center pointer-events-none overflow-hidden"
+        className="absolute inset-x-0 top-24 sm:top-28 md:top-1/2 md:-translate-y-1/2 z-0 flex items-center justify-center pointer-events-none overflow-hidden"
       >
         <motion.h1
           initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[23vw] font-normal uppercase tracking-tight leading-none text-[#FF2028] select-none text-center transform-gpu will-change-transform"
+          className="text-[25vw] sm:text-[24vw] md:text-[23vw] font-normal uppercase tracking-tight leading-none text-[#FF2028] select-none text-center transform-gpu will-change-transform"
           style={{
             fontFamily: "var(--font-bebas-neue), sans-serif",
             letterSpacing: "0.02em",
@@ -108,13 +108,13 @@ export default function Hero() {
           opacity: scrollOpacity,
           x: portraitX,
         }}
-        className="absolute inset-x-0 bottom-0 top-14 sm:top-10 z-10 flex items-end justify-center pointer-events-none transform-gpu will-change-transform"
+        className="absolute inset-x-0 top-14 sm:top-12 md:top-10 bottom-auto md:bottom-0 z-10 flex items-start md:items-end justify-center pointer-events-none transform-gpu will-change-transform"
       >
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-          className="relative h-[68vh] sm:h-[78vh] md:h-[84vh] max-h-[820px] w-auto aspect-[785/842] pointer-events-auto"
+          className="relative h-[43vh] sm:h-[50vh] md:h-[84vh] max-h-[820px] w-auto aspect-[785/842] pointer-events-auto"
           data-cursor="image"
         >
           {/* Subtle Soft Red Rim Glow strictly behind portrait */}
@@ -132,28 +132,28 @@ export default function Hero() {
             fill
             priority
             unoptimized
-            className="object-contain object-bottom filter grayscale contrast-110 drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
+            className="object-contain object-top md:object-bottom filter grayscale contrast-110 drop-shadow-[0_20px_40px_rgba(0,0,0,0.95)]"
             sizes="(max-width: 768px) 90vw, 700px"
           />
 
-          {/* Bottom subtle gradient fade to ground the torso */}
-          <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent pointer-events-none" />
+          {/* Bottom subtle gradient fade to ground the torso into the dark canvas */}
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-32 md:h-24 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent pointer-events-none" />
         </motion.div>
       </motion.div>
 
       {/* 3. FOREGROUND CONTENT: LOWER-LEFT EDITORIAL BLOCK */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 w-full flex-grow flex flex-col justify-end pb-12 sm:pb-16 pointer-events-none">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+      <div className="relative z-20 max-w-7xl mx-auto px-5 sm:px-10 lg:px-12 w-full flex-grow flex flex-col justify-end pb-8 sm:pb-12 md:pb-16 pointer-events-none mt-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-8 items-end">
           {/* Left Block: Stacked Roles + Tagline + Action Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:col-span-6 lg:col-span-5 pointer-events-auto space-y-4"
+            className="md:col-span-6 lg:col-span-5 pointer-events-auto space-y-3 sm:space-y-4"
           >
             {/* Small Monogram / Status Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.04] border border-white/10 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-[#FF2028] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/[0.04] border border-white/10 backdrop-blur-md rounded-full sm:rounded-none">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF2028] animate-pulse" />
               <span className="text-[10px] sm:text-xs font-mono tracking-widest text-[#F5F5F5] uppercase">
                 CSE &apos;27 • NATIONAL ENGINEERING COLLEGE
               </span>
@@ -162,13 +162,13 @@ export default function Hero() {
             {/* Stacked Roles */}
             <div className="space-y-0.5">
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white leading-tight"
+                className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white leading-tight"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
                 Data Engineer
               </h2>
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white leading-tight"
+                className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight uppercase text-white leading-tight"
                 style={{ fontFamily: "var(--font-space-grotesk)" }}
               >
                 Data Analyst
@@ -176,16 +176,16 @@ export default function Hero() {
             </div>
 
             {/* Tagline */}
-            <p className="text-sm sm:text-base text-[#8A8A8A] font-light leading-relaxed max-w-md pt-1">
+            <p className="text-xs sm:text-sm md:text-base text-[#B0B0B0] font-light leading-relaxed max-w-md pt-0.5 sm:pt-1">
               Turning raw data into actionable insights and robust pipelines.
             </p>
 
             {/* Sleek Pill Buttons Side-by-Side */}
-            <div className="flex flex-wrap items-center gap-3 pt-3">
+            <div className="flex items-center gap-3 pt-2 sm:pt-3">
               <button
                 type="button"
                 onClick={() => scrollTo("projects")}
-                className="px-6 py-3 bg-[#0B0B0B]/90 hover:bg-[#FF2028] border border-white/15 hover:border-[#FF2028] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-md transition-all duration-300 shadow-[0_0_20px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(255,32,40,0.5)]"
+                className="flex-1 sm:flex-initial text-center px-5 sm:px-6 py-2.5 sm:py-3 bg-[#FF2028] hover:bg-[#E01820] text-white text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-md transition-all duration-300 shadow-[0_0_20px_rgba(255,32,40,0.4)]"
                 data-cursor="project"
               >
                 View Projects
@@ -194,7 +194,7 @@ export default function Hero() {
               <button
                 type="button"
                 onClick={() => scrollTo("contact")}
-                className="px-6 py-3 bg-transparent hover:bg-white/[0.05] border border-white/20 hover:border-white/50 text-[#F5F5F5] text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-md transition-all duration-300"
+                className="flex-1 sm:flex-initial text-center px-5 sm:px-6 py-2.5 sm:py-3 bg-white/[0.04] hover:bg-white/[0.08] border border-white/20 hover:border-white/50 text-[#F5F5F5] text-xs sm:text-sm font-semibold tracking-wider uppercase rounded-md transition-all duration-300"
                 data-cursor="link"
               >
                 Contact Me
@@ -207,9 +207,9 @@ export default function Hero() {
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="md:col-span-6 lg:col-span-7 flex md:justify-end pointer-events-auto"
+            className="md:col-span-6 lg:col-span-7 flex justify-start md:justify-end pointer-events-auto pt-1 md:pt-0"
           >
-            <div className="flex md:flex-col items-center gap-4 p-3 bg-[#0B0B0B]/80 border border-white/10 backdrop-blur-md rounded-lg shadow-2xl">
+            <div className="flex md:flex-col items-center gap-2 sm:gap-4 p-2 sm:p-3 bg-[#0B0B0B]/90 border border-white/10 backdrop-blur-md rounded-full md:rounded-lg shadow-2xl">
               <a
                 href={PORTFOLIO_DATA.profile.social.github}
                 target="_blank"
@@ -254,7 +254,7 @@ export default function Hero() {
                 <IconLeetCode className="w-4 h-4" />
               </a>
 
-              <span className="hidden md:block w-px h-6 bg-white/15 my-1" />
+              <span className="w-px h-4 md:w-4 md:h-px bg-white/15 mx-0.5 md:my-1" />
 
               {/* Scroll Trigger */}
               <button
