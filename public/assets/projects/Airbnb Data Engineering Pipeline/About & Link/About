@@ -1,0 +1,47 @@
+Airbnb End-to-End Data Engineering Pipeline
+Project Overview
+The Airbnb End-to-End Data Engineering Pipeline is a modern, production-grade data processing workflow built using Snowflake, dbt (Data Build Tool), AWS, and Git.
+
+This project ingests, transforms, and models raw Airbnb data using an industry-standard Medallion Architecture (Bronze → Silver → Gold). It showcases best practices in data warehousing, including incremental data loading, Slowly Changing Dimensions (SCD Type 2) via dbt snapshots, custom Jinja macros, automated data testing, and modular SQL development.
+
+Architecture & Data Flow
+Data flows seamlessly through a structured multi-layer pipeline:
+
+Source Data (AWS / Raw Storage) → Snowflake Staging Layer
+
+Bronze Layer: Raw data ingestion, initial standardization, and incremental loading (bronze_bookings, bronze_hosts, bronze_listings).
+
+Silver Layer: Data cleaning, type conversion, null handling, validation, and business rule application (silver_bookings, silver_hosts, silver_listings).
+
+Gold Layer: Business-ready analytical tables, including a denormalized One Big Table (obt) and structured fact models (fact) tailored for reporting and dashboard consumption.
+
+Key Technical Features
+Incremental Models: Implemented across Bronze and Silver layers to process only new records, ensuring faster execution and minimized compute costs.
+
+Slowly Changing Dimensions (SCD Type 2): Managed via dbt Snapshots (dim_bookings, dim_hosts, dim_listings) to track historical changes over time for point-in-time reporting.
+
+Custom Jinja Macros: Reusable code logic including custom schema routing (generate_schema_name.sql), string cleanup (trimmer.sql), dynamic calculation utilities (multiply.sql), and business tagging (tag.sql).
+
+Data Quality & Testing: Comprehensive automated testing framework covering source validation, null checks, and business rules via dbt test.
+
+Modular SQL Development: Clean separation of concerns using ephemeral models, sources, and version-controlled transformations.
+
+Tech Stack
+Data Warehouse: Snowflake (AIRBNB.BRONZE, AIRBNB.SILVER, AIRBNB.GOLD)
+
+Transformation Tool: dbt Core (SQL + Jinja)
+
+Cloud Platform: AWS
+
+Version Control: Git & GitHub
+
+Development Environment: VS Code
+
+Future Enhancements
+CI/CD pipeline integration using GitHub Actions.
+
+Orchestration with Apache Airflow.
+
+Advanced monitoring, alerting, and automated Data Quality Dashboards.
+
+Github link: https://github.com/Krishnaprasad0705/Airbnb-data-engineering-pipeline

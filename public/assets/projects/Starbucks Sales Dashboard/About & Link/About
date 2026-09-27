@@ -1,0 +1,28 @@
+Project Overview
+This project features an interactive Power BI dashboard designed to analyze Starbucks India’s comprehensive sales performance over a 10-year period. It provides granular insights into revenue streams, regional performance, and temporal trends through a polished, brand-aligned visual interface.
+
+ETL Process & Architecture
+Extract: Ingested historical sales records from the Starbucks_India_10yrs_sales.csv dataset.
+
+Transform: Performed data cleansing, handling, and preprocessing using DataColab, alongside feature engineering to calculate key business metrics such as Profit Margin, Net Revenue, and Year-over-Year (YoY) Growth.
+
+Load: Loaded the processed dataset into Power BI to establish the relational model and power visual analytics.
+
+Key Features & Capabilities
+Executive KPI Cards: High-level metrics tracking total Revenue, Profit, and Discounts.
+
+Category & Regional Breakdown: Deep-dive analysis examining performance across product categories and geographical regions.
+
+Temporal Trend Analysis: Visualizes monthly trends enhanced with gradient visuals to highlight cyclical patterns.
+
+Dynamic Interactivity: Equipped with interactive slicers enabling users to filter and slice data for dynamic, targeted insights.
+
+Thematic UI Design: Styled using a premium green-gold Starbucks visual theme.
+
+Tools & Technologies Used
+Visualization & Modeling: Power BI, DAX, Power Query
+
+Data Processing & Cleansing: DataColab, Excel / CSV
+
+
+Github Link: https://github.com/Krishnaprasad0705/Starbucks-Sales-Dashboard

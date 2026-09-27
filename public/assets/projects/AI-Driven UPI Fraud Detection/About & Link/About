@@ -1,0 +1,11 @@
+AI-Driven UPI Fraud Detection System
+
+This project presents an AI-driven fraud detection system designed to identify suspicious and potentially unauthorized UPI transactions using machine learning. The system analyzes transaction-level behavioral patterns and uses the Isolation Forest anomaly detection algorithm to identify transactions that deviate significantly from normal transaction behavior.
+
+Instead of relying on a fixed rule-based approach, the system assigns each transaction a risk score from 0 to 100, allowing suspicious activity to be evaluated based on its level of anomaly. Transactions are then categorized into three risk levels: APPROVE, REVIEW, and BLOCK, enabling potentially fraudulent transactions to be prioritized for further investigation.
+
+The solution includes a Flask-based API for transaction analysis and a Streamlit dashboard for monitoring transaction statistics, viewing fraud alerts, analyzing individual transactions, simulating transactions, and exporting risk analysis results. The dashboard provides a centralized view of detected anomalies and their corresponding risk levels.
+
+The project demonstrates how machine learning, anomaly detection, API development, and interactive data visualization can be combined to build a practical financial security solution for monitoring UPI transaction activity.
+
+Github Link : Project Currently on Work
