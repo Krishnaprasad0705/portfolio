@@ -12,6 +12,8 @@ interface MagneticButtonProps {
   rel?: string;
   variant?: "primary" | "secondary" | "outline";
   dataCursor?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export default function MagneticButton({
@@ -23,6 +25,8 @@ export default function MagneticButton({
   rel,
   variant = "primary",
   dataCursor,
+  type = "button",
+  disabled = false,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -88,7 +92,14 @@ export default function MagneticButton({
   }
 
   return (
-    <button type="button" onClick={onClick} className="inline-block bg-transparent p-0 border-0">
+    <button
+      type={type}
+      disabled={disabled}
+      onClick={onClick}
+      className={`inline-block bg-transparent p-0 border-0 ${
+        disabled ? "opacity-60 cursor-not-allowed pointer-events-none" : ""
+      }`}
+    >
       {content}
     </button>
   );

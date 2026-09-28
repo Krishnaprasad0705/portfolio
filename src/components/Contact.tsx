@@ -26,6 +26,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleCopyEmail = () => {
@@ -34,21 +35,68 @@ export default function Contact() {
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
+    setErrorMessage(null);
+
+    const name = formState.name.trim();
+    const email = formState.email.trim();
+    const message = formState.message.trim();
+    const subject = formState.subject.trim();
+
+    // 1. Validation
+    if (!name) {
+      setErrorMessage("Name is required.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+
+    if (!message) {
+      setErrorMessage("Message is required.");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    const mailtoUrl = `mailto:${PORTFOLIO_DATA.profile.social.email}?subject=${encodeURIComponent(
-      formState.subject || "Portfolio Inquiry from " + formState.name
-    )}&body=${encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`
-    )}`;
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message,
+        }),
+      });
 
-    setTimeout(() => {
+      const data = await response.json().catch(() => null);
+
+      if (response.ok && data?.success) {
+        setSubmitted(true);
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        setErrorMessage(data?.error || "TRANSMISSION FAILED. PLEASE TRY AGAIN.");
+      }
+    } catch {
+      setErrorMessage("TRANSMISSION FAILED. PLEASE TRY AGAIN.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-      window.open(mailtoUrl, "_blank");
-    }, 600);
+    }
   };
 
   return (
@@ -236,18 +284,21 @@ export default function Contact() {
                   className="text-2xl font-black uppercase text-white tracking-tight"
                   style={{ fontFamily: "var(--font-space-grotesk)" }}
                 >
-                  MESSAGE PREPARED!
+                  MESSAGE TRANSMITTED SUCCESSFULLY.
                 </h4>
                 <p className="text-sm text-[#8A8A8A] max-w-sm">
-                  Your mail client has been opened to dispatch directly to{" "}
-                  <span className="text-white">{PORTFOLIO_DATA.profile.social.email}</span>.
+                  Thank you for reaching out! Your message has been dispatched to{" "}
+                  <span className="text-white">krishnampks07@gmail.com</span>. I will respond to your email shortly.
                 </p>
                 <button
                   type="button"
-                  onClick={() => setSubmitted(false)}
-                  className="text-xs font-mono text-[#FF2028] uppercase tracking-wider underline pt-4"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setErrorMessage(null);
+                  }}
+                  className="text-xs font-mono text-[#FF2028] uppercase tracking-wider underline pt-4 hover:text-white transition-colors"
                 >
-                  SEND ANOTHER NOTE
+                  SEND ANOTHER MESSAGE
                 </button>
               </div>
             ) : (
@@ -260,9 +311,10 @@ export default function Contact() {
                     type="text"
                     required
                     value={formState.name}
-                    onChange={(e) =>
-                      setFormState({ ...formState, name: e.target.value })
-                    }
+                    onChange={(e) => {
+                      if (errorMessage) setErrorMessage(null);
+                      setFormState({ ...formState, name: e.target.value });
+                    }}
                     placeholder="e.g. Jane Doe"
                     className="w-full px-4 py-3 bg-[#050505] border border-white/10 text-white placeholder-white/20 text-sm focus:outline-none focus:border-[#FF2028] focus:ring-1 focus:ring-[#FF2028] transition-all"
                   />
@@ -276,9 +328,10 @@ export default function Contact() {
                     type="email"
                     required
                     value={formState.email}
-                    onChange={(e) =>
-                      setFormState({ ...formState, email: e.target.value })
-                    }
+                    onChange={(e) => {
+                      if (errorMessage) setErrorMessage(null);
+                      setFormState({ ...formState, email: e.target.value });
+                    }}
                     placeholder="e.g. jane@company.com"
                     className="w-full px-4 py-3 bg-[#050505] border border-white/10 text-white placeholder-white/20 text-sm focus:outline-none focus:border-[#FF2028] focus:ring-1 focus:ring-[#FF2028] transition-all"
                   />
@@ -307,20 +360,30 @@ export default function Contact() {
                     rows={4}
                     required
                     value={formState.message}
-                    onChange={(e) =>
-                      setFormState({ ...formState, message: e.target.value })
-                    }
+                    onChange={(e) => {
+                      if (errorMessage) setErrorMessage(null);
+                      setFormState({ ...formState, message: e.target.value });
+                    }}
                     placeholder="Tell me about your dataset, project, or role..."
                     className="w-full px-4 py-3 bg-[#050505] border border-white/10 text-white placeholder-white/20 text-sm focus:outline-none focus:border-[#FF2028] focus:ring-1 focus:ring-[#FF2028] transition-all resize-none"
                   />
                 </div>
 
+                {errorMessage && (
+                  <div className="p-3 bg-[#FF2028]/10 border border-[#FF2028]/40 text-[#FF2028] text-xs font-mono tracking-wide flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF2028] shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 <MagneticButton
+                  type="submit"
+                  disabled={isSubmitting}
                   variant="primary"
                   className="w-full"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>{isSubmitting ? "PREPARING..." : "TRANSMIT MESSAGE"}</span>
+                  <Send className={`w-4 h-4 ${isSubmitting ? "animate-pulse text-white/70" : ""}`} />
+                  <span>{isSubmitting ? "TRANSMITTING..." : "TRANSMIT MESSAGE"}</span>
                 </MagneticButton>
               </form>
             )}
